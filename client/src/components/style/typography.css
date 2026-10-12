@@ -1,0 +1,169 @@
+/* ==========================================================================
+   typography.css — type system
+   --------------------------------------------------------------------------
+   1. Default heading styles (so bare <h1>…<h4> look right with zero classes)
+   2. @utility presets: `type-display`, `type-h1`, `type-overline` …
+      → size + line-height + tracking + weight in ONE class.
+   3. `.prose-shop`: rich-text (product descriptions, policy pages, blog).
+      Zero dependencies. To use the official plugin instead, see
+      docs/05-TYPOGRAPHY.md.
+
+   Scale values live in tokens.css (--text-*). Do not hard-code sizes here.
+   ========================================================================== */
+
+/* 1 — element defaults ---------------------------------------------------- */
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-foreground);
+    text-wrap: balance;
+  }
+  h1 {
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+    letter-spacing: var(--text-h1--letter-spacing);
+    font-weight: var(--text-h1--font-weight);
+  }
+  h2 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    letter-spacing: var(--text-h2--letter-spacing);
+    font-weight: var(--text-h2--font-weight);
+  }
+  h3 {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    letter-spacing: var(--text-h3--letter-spacing);
+    font-weight: var(--text-h3--font-weight);
+  }
+  h4 {
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
+    font-weight: var(--text-h4--font-weight);
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* 2 — presets: use these when the visual level ≠ the semantic tag ---------- */
+@utility type-display {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: var(--text-display--line-height);
+  letter-spacing: var(--text-display--letter-spacing);
+  font-weight: var(--text-display--font-weight);
+  text-wrap: balance;
+}
+@utility type-h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  line-height: var(--text-h1--line-height);
+  letter-spacing: var(--text-h1--letter-spacing);
+  font-weight: var(--text-h1--font-weight);
+  text-wrap: balance;
+}
+@utility type-h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  line-height: var(--text-h2--line-height);
+  letter-spacing: var(--text-h2--letter-spacing);
+  font-weight: var(--text-h2--font-weight);
+  text-wrap: balance;
+}
+@utility type-h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  line-height: var(--text-h3--line-height);
+  letter-spacing: var(--text-h3--letter-spacing);
+  font-weight: var(--text-h3--font-weight);
+}
+@utility type-h4 {
+  font-size: var(--text-h4);
+  line-height: var(--text-h4--line-height);
+  font-weight: var(--text-h4--font-weight);
+}
+@utility type-body-lg {
+  font-size: var(--text-body-lg);
+  line-height: var(--text-body-lg--line-height);
+  color: var(--color-muted);
+}
+@utility type-body {
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+}
+@utility type-small {
+  font-size: var(--text-small);
+  line-height: var(--text-small--line-height);
+}
+@utility type-caption {
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  color: var(--color-subtle);
+}
+/* Red eyebrow above the hero headline: "Discover. Shop. Upgrade."
+   Sentence case as in the reference; add `uppercase tracking-widest` in markup if ever needed. */
+@utility type-overline {
+  font-size: var(--text-overline);
+  line-height: var(--text-overline--line-height);
+  letter-spacing: var(--text-overline--letter-spacing);
+  font-weight: var(--text-overline--font-weight);
+  color: var(--color-primary);
+}
+/* Accent word inside a headline: "Latest Tech <span class="accent">Gadgets</span>" */
+@utility type-accent {
+  color: var(--color-primary);
+}
+
+/* 3 — rich text ------------------------------------------------------------ */
+@layer components {
+  .prose-shop {
+    color: var(--color-foreground);
+    font-size: var(--text-body);
+    line-height: 1.75;
+    max-width: 68ch;
+
+    & > * + * { margin-top: 1.25em; }
+
+    & h2 { font-size: var(--text-h3); line-height: var(--text-h3--line-height); margin-top: 2em; }
+    & h3 { font-size: var(--text-h4); line-height: var(--text-h4--line-height); margin-top: 1.75em; }
+
+    & a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      &:hover { color: var(--color-primary-hover); }
+    }
+    & strong { font-weight: 600; }
+    & ul, & ol { padding-left: 1.5em; }
+    & ul { list-style: disc; }
+    & ol { list-style: decimal; }
+    & li + li { margin-top: 0.4em; }
+    & li::marker { color: var(--color-primary); }
+
+    & blockquote {
+      border-left: 3px solid var(--color-primary);
+      padding-left: 1em;
+      color: var(--color-muted);
+      font-style: italic;
+    }
+    & hr { border-color: var(--color-border); margin-block: 2em; }
+    & img { border-radius: var(--radius-lg); }
+
+    & table { width: 100%; border-collapse: collapse; font-size: var(--text-small); }
+    & th {
+      text-align: left;
+      font-weight: 600;
+      background: var(--color-surface);
+    }
+    & th, & td { padding: 0.65em 0.9em; border-bottom: 1px solid var(--color-border); }
+
+    & code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background: var(--color-surface);
+      padding: 0.15em 0.4em;
+      border-radius: var(--radius-xs);
+    }
+  }
+}

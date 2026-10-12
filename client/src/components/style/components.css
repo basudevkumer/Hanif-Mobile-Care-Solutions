@@ -1,0 +1,224 @@
+/* ==========================================================================
+   components.css — reusable UI building blocks (@layer components)
+   --------------------------------------------------------------------------
+   Naming:  block  /  block-element  /  block-modifier   (all lowercase-kebab)
+            .btn  .btn-primary  .product-card  .product-card-price
+   Layer:   `components` sits BELOW utilities, so a one-off `class="btn rounded-full"`
+            in markup always wins. No !important, no specificity fights.
+   Colors:  SEMANTIC tokens only (primary, surface, border…). Never raw palette.
+   ========================================================================== */
+
+@layer components {
+
+  /* ── Buttons ──────────────────────────────────────────────────────────── */
+  .btn {
+    @apply inline-flex h-11 select-none items-center justify-center gap-2 whitespace-nowrap
+      rounded-md px-5 text-small font-semibold
+      transition-[background-color,color,border-color,box-shadow,transform] duration-200 ease-standard
+      active:scale-[0.98]
+      disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-primary text-primary-foreground shadow-brand hocus:bg-primary-hover active:bg-primary-active;
+  }
+  .btn-outline {
+    @apply border border-border-strong bg-surface-raised text-foreground hocus:border-foreground;
+  }
+  .btn-dark {
+    @apply bg-surface-inverse text-on-inverse hocus:bg-ink-800;
+  }
+  .btn-ghost {
+    @apply text-foreground hocus:bg-surface;
+  }
+  .btn-sm { @apply h-9 px-4 text-caption; }
+  .btn-lg { @apply h-12 px-7 text-body; }
+  .btn-block { @apply w-full; }
+
+  /* Round icon-only button (wishlist heart, carousel arrows, "go" arrows) */
+  .icon-btn {
+    @apply inline-grid size-10 shrink-0 place-items-center rounded-full
+      text-foreground transition-colors duration-200 hocus:bg-surface;
+  }
+  .icon-btn-primary {
+    @apply bg-primary text-primary-foreground hocus:bg-primary-hover;
+  }
+  .icon-btn-sm { @apply size-8; }
+
+  /* ── Form controls ────────────────────────────────────────────────────── */
+  .field-label {
+    @apply mb-1.5 block text-small font-medium text-foreground;
+  }
+  .input {
+    @apply h-11 w-full rounded-md border border-border-input bg-surface-raised px-4
+      text-body text-foreground placeholder:text-subtle
+      transition-[border-color,box-shadow] duration-200
+      hover:border-ink-600
+      focus-visible:border-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/15
+      disabled:cursor-not-allowed disabled:bg-surface disabled:opacity-60
+      aria-invalid:border-danger-600 aria-invalid:ring-danger-600/15;
+  }
+  .field-error {
+    @apply mt-1.5 text-caption font-medium text-danger-700;
+  }
+  /* Header search: pill, grey, with a round dark submit button on the right */
+  .search-field {
+    @apply flex h-11 w-full items-center gap-2 rounded-full bg-surface pl-5 pr-1.5
+      ring-1 ring-transparent transition-shadow duration-200
+      focus-within:bg-surface-raised focus-within:ring-border-strong;
+  }
+  .search-field-input {
+    @apply min-w-0 flex-1 bg-transparent text-small text-foreground outline-none placeholder:text-subtle;
+  }
+
+  /* ── Surfaces ─────────────────────────────────────────────────────────── */
+  .card {
+    @apply rounded-xl bg-surface;
+  }
+  .card-raised {
+    @apply rounded-xl border border-border bg-surface-raised shadow-card;
+  }
+  .card-interactive {
+    @apply transition-[box-shadow,transform] duration-300 ease-out-expo
+      hocus:-translate-y-0.5 hocus:shadow-card-hover;
+  }
+
+  /* ── Badges & chips ───────────────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-caption font-semibold;
+  }
+  .badge-primary { @apply bg-primary text-primary-foreground; }
+  .badge-soft    { @apply bg-primary-soft text-primary; }
+  .badge-neutral { @apply bg-surface text-muted; }
+  .badge-success { @apply bg-success-50 text-success-700; }
+
+  /* The round "New Arrivals" sticker on the hero */
+  .badge-sticker {
+    @apply grid size-20 place-items-center rounded-full bg-surface-raised text-center
+      text-small font-bold leading-tight text-foreground shadow-popover;
+  }
+
+  .chip {
+    @apply inline-flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface-raised
+      px-4 text-small font-medium text-foreground transition-colors duration-200
+      hocus:border-foreground current:border-primary current:bg-primary-soft current:text-primary;
+  }
+
+  /* ── Navigation ───────────────────────────────────────────────────────── */
+  /* Top nav link; active page gets red text + 2px underline (aria-current) */
+  .nav-link {
+    @apply relative inline-flex items-center py-2 text-small font-medium text-foreground
+      transition-colors duration-200 hocus:text-primary current:text-primary;
+
+    &::after {
+      content: "";
+      @apply absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-primary
+        transition-transform duration-300 ease-out-expo;
+    }
+    &:hover::after,
+    &[aria-current="page"]::after {
+      @apply scale-x-100;
+    }
+  }
+  /* Secondary strip: Gadgets · Smart Home · Audio · Wearables … */
+  .subnav-link {
+    @apply inline-flex items-center gap-2 whitespace-nowrap py-3 text-small font-medium text-foreground
+      transition-colors duration-200 hocus:text-primary current:text-primary;
+  }
+
+  /* ── Section header: "Trending Products ……… View all" ─────────────────── */
+  .section-heading {
+    @apply mb-5 flex items-end justify-between gap-4;
+  }
+  .section-title {
+    @apply type-h3;
+  }
+  .section-link {
+    @apply inline-flex items-center gap-1 text-small font-semibold text-primary
+      transition-colors duration-200 hocus:text-primary-hover;
+  }
+
+  /* ── Category quick card (Audio / Smart Devices / Wearables …) ────────── */
+  .category-tile {
+    @apply flex items-center gap-3 rounded-xl bg-surface p-4
+      transition-[background-color,box-shadow] duration-300
+      hocus:bg-surface-raised hocus:shadow-card-hover;
+  }
+  .category-tile-title { @apply text-small font-semibold text-foreground; }
+  .category-tile-text  { @apply text-caption text-muted; }
+
+  /* ── Product card ─────────────────────────────────────────────────────── */
+  .product-card {
+    @apply relative flex flex-col overflow-hidden rounded-xl bg-surface
+      transition-[box-shadow,transform] duration-300 ease-out-expo
+      hocus:-translate-y-0.5 hocus:shadow-card-hover;
+
+    /* image zoom on card hover (replaces `group-hover`, which can't be @applied) */
+    &:hover .product-card-media img {
+      @apply scale-105;
+    }
+  }
+  .product-card-media {
+    @apply relative grid aspect-square place-items-center bg-surface-raised p-4;
+
+    & img {
+      @apply size-full object-contain transition-transform duration-500 ease-out-expo;
+    }
+  }
+  .product-card-body  { @apply flex flex-col gap-1 p-3; }
+  .product-card-title { @apply line-clamp-1 text-caption font-semibold text-foreground; }
+  .product-card-price { @apply text-small font-bold text-price; }
+  .product-card-price-sale { @apply text-price-sale; }
+  .product-card-price-old  { @apply text-caption font-normal text-subtle line-through; }
+  .product-card-likes {
+    @apply inline-flex items-center gap-1 text-caption font-medium text-muted;
+  }
+
+  /* ── Trust / benefit row (Worldwide Shipping · Secure Payments …) ─────── */
+  .trust-bar {
+    @apply grid grid-cols-2 rounded-xl bg-surface gap-x-4 gap-y-6 p-5 lg:grid-cols-4 lg:gap-0 lg:p-6;
+  }
+  .trust-item {
+    @apply flex items-start gap-3 lg:px-5 lg:first:pl-0 lg:last:pr-0;
+
+    &:not(:first-child) {
+      @apply lg:border-l lg:border-border;
+    }
+  }
+  .trust-item-title { @apply text-small font-semibold text-foreground; }
+  .trust-item-text  { @apply text-caption text-muted; }
+
+  /* ── Idea / inspiration tile (image with caption overlay) ─────────────── */
+  .idea-tile {
+    @apply scrim-bottom relative flex aspect-[4/5] flex-col justify-end overflow-hidden
+      rounded-xl p-4 text-white;
+
+    & img {
+      @apply absolute inset-0 size-full object-cover transition-transform duration-700 ease-out-expo;
+    }
+    &:hover img {
+      @apply scale-105;
+    }
+  }
+  .idea-tile-title { @apply text-small font-semibold; }
+  .idea-tile-meta  { @apply text-caption text-white/80; }
+
+  /* ── Promo banner (Exclusive Deals) ───────────────────────────────────── */
+  .promo-banner {
+    @apply bg-hero-red flex items-center gap-5 rounded-2xl p-6 text-primary-foreground lg:p-8;
+  }
+  .promo-banner-title { @apply type-h3 text-white; }
+  .promo-banner-text  { @apply text-small text-white/85; }
+
+  /* ── Newsletter block ─────────────────────────────────────────────────── */
+  .newsletter {
+    @apply flex flex-col gap-4 rounded-xl bg-surface p-6 lg:p-8;
+  }
+  .newsletter-form {
+    @apply flex w-full max-w-md items-center gap-2;
+  }
+
+  /* ── Divider with label ───────────────────────────────────────────────── */
+  .divider {
+    @apply h-px w-full bg-border;
+  }
+}

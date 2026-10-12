@@ -1,0 +1,28 @@
+/* ==========================================================================
+   global.css — the ONLY stylesheet imported by the app (layout.tsx / main.tsx)
+   --------------------------------------------------------------------------
+   Rules
+   1. Imports only. No rules live here. Add styles to a file in
+      src/components/style/ and import it below.
+   2. Order matters: Tailwind → tokens → semantic → variants → base →
+      typography → utilities → components.
+   3. All files are pulled into ONE Tailwind compilation via @import, so
+      @apply / theme() work everywhere. If you ever process a style file
+      separately (CSS Modules, Vue/Svelte <style>), add
+      `@reference "<path>/global.css";` at its top.
+   ========================================================================== */
+
+@import "tailwindcss";
+
+/* Optional official typography plugin (npm i -D @tailwindcss/typography),
+   then uncomment. Not needed — .prose-shop already covers rich text.
+@plugin "@tailwindcss/typography";
+*/
+
+@import "../components/style/tokens.css";
+@import "../components/style/semantic.css";
+@import "../components/style/variants.css";
+@import "../components/style/base.css";
+@import "../components/style/typography.css";
+@import "../components/style/utilities.css";
+@import "../components/style/components.css";
