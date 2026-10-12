@@ -7,6 +7,7 @@ import {
   Headphones,
   ArrowRight,
 } from "lucide-react";
+import Container from "@/components/common/Container";
 
 const services = [
   {
@@ -49,7 +50,7 @@ const services = [
 export default function QuickServicesSection() {
   return (
     <section className="section-y bg-background">
-      <div className="container-page">
+      <Container>
         {/* Section Heading */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
           <div>
@@ -103,7 +104,7 @@ export default function QuickServicesSection() {
             );
           })}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

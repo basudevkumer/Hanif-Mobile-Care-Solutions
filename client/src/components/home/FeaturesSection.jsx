@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, Wrench } from "lucide-react";
 import { homeFeatures } from "@/data/home";
+import Container from "@/components/common/Container";
 
 export default function FeaturesSection() {
   return (
     <section className="section-y bg-surface/60 border-y border-border relative">
-      <div className="container-page">
+      <Container>
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
           <span className="type-overline uppercase tracking-wider font-bold">
@@ -84,7 +85,7 @@ export default function FeaturesSection() {
             </Link>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
