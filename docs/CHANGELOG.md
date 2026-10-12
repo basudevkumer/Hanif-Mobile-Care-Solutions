@@ -3,6 +3,7 @@
 Format: `YYYY-MM-DD · agent · area · what changed (and why, if not obvious)`
 
 ## 2026-10-13
+- antigravity · common · Created reusable `Container.jsx` component (`container-page`) and integrated it into `HeroSection`, `QuickServicesSection`, and `FeaturesSection`.
 - antigravity · hero · Fixed rating card overlap in HeroSection: integrated rating block cleanly within the diagnostic showcase card, positioned 90-Day Warranty badge at top-right, and relocated device flagship chips to left column.
 - antigravity · home · Redesigned and refactored HeroSection, FeaturesSection, and added QuickServicesSection with Tailwind CSS v4 design tokens, responsive cards, diagnostic status highlights, and verified data.
 - antigravity · layout · Replaced SiteHeader and SiteFooter with Navbar and Footer across root layout; implemented modern responsive navigation with mobile drawer and comprehensive 4-column footer styled with Tailwind CSS tokens; updated Brand component.

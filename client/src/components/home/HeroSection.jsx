@@ -9,6 +9,7 @@ import {
   Clock,
   Sparkles,
 } from "lucide-react";
+import Container from "@/components/common/Container";
 
 export default function HeroSection() {
   return (
@@ -19,7 +20,7 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
-      <div className="container-page">
+      <Container>
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
           {/* Left Column: Headlines & CTA */}
           <div className="lg:col-span-7 flex flex-col items-start">
@@ -190,7 +191,7 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
