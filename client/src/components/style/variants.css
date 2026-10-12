@@ -1,0 +1,26 @@
+/* ==========================================================================
+   variants.css — custom variants (@custom-variant)
+   ========================================================================== */
+
+/* Class-based dark mode: <html class="dark"> → `dark:bg-…` */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* hover on pointer devices, focus-visible for keyboard: `hocus:…` */
+@custom-variant hocus {
+  &:hover {
+    @media (hover: hover) {
+      @slot;
+    }
+  }
+  &:focus-visible {
+    @slot;
+  }
+}
+
+/* Active nav / tab state driven by ARIA, not by extra classes:
+   `current:text-primary` matches aria-current="page" */
+@custom-variant current (&[aria-current="page"], &[aria-current="true"]);
+
+/* Open/closed state from data attributes (Radix / Headless UI style) */
+@custom-variant data-open (&[data-state="open"]);
+@custom-variant data-closed (&[data-state="closed"]);
